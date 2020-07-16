@@ -1,0 +1,46 @@
+/*
+  ==============================================================================
+
+    This file contains the basic framework code for a JUCE plugin editor.
+
+  ==============================================================================
+*/
+
+#include "PluginProcessor.h"
+#include "PluginEditor.h"
+
+//==============================================================================
+NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
+    : AudioProcessorEditor (&p), audioProcessor (p)
+{
+	webBrowser = std::make_shared<juce::WebBrowserComponent>(new juce::WebBrowserComponent());
+    // Make sure that before the constructor has finished, you've set the
+    // editor's size to whatever you need it to be.
+    setSize (400, 300);
+	this->addAndMakeVisible(webBrowser.get());
+	webBrowser.get()->goToURL("http://localhost:3000");
+
+}
+
+NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
+{
+}
+
+//==============================================================================
+void NewProjectAudioProcessorEditor::paint (juce::Graphics& g)
+{
+    // (Our component is opaque, so we must completely fill the background with a solid colour)
+    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+
+    g.setColour (juce::Colours::white);
+    g.setFont (15.0f);
+    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+}
+
+void NewProjectAudioProcessorEditor::resized()
+{
+	int height = getHeight();
+	int width = getWidth();
+
+	webBrowser.get()->setSize(width, height);
+}

@@ -6,7 +6,7 @@ MainComponent::MainComponent()
 	webBrowser = std::make_shared<juce::WebBrowserComponent>(new juce::WebBrowserComponent());
     setSize (600, 400);
 	this->addAndMakeVisible(webBrowser.get());
-	webBrowser.get()->goToURL("file://C:\\Develop\\NewProject\\webapp\\build\\index.html");
+	webBrowser.get()->goToURL("http://localhost:3000");
 }
 
 MainComponent::~MainComponent()
