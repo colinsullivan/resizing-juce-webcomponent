@@ -18,7 +18,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     // editor's size to whatever you need it to be.
     setSize (400, 300);
 	this->addAndMakeVisible(webBrowser.get());
-	webBrowser.get()->goToURL("http://localhost:3000");
+	//webBrowser.get()->goToURL("http://localhost:3000");
+	webBrowser.get()->goToURL("file://C:\\Develop\\NewProject\\webapp\\public\\simple.html");
 
 }
 
