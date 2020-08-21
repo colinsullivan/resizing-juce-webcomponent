@@ -12,6 +12,6 @@ This was put together quickly, there is a project within a project here.
 ## Running
 Ensure the URL being loaded is correct:
 
-`goToURL` should point to `http://localhost:3000` if you are using the CRA devtools or directly to the `simple.html` file.
+`goToURL` should point to `http://localhost:3000` if you are using the CRA devtools or directly to the `webapp/public/simple.html` file.
 
 https://github.com/colinsullivan/resizing-juce-webcomponent/blob/master/VSTProject/Source/PluginEditor.cpp#L22
