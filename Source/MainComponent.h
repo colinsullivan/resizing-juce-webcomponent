@@ -15,14 +15,18 @@ public:
     ~MainComponent() override;
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void focusGained (juce::Component::FocusChangeType cause) override;
+    void visibilityChanged() override;
 
 private:
+    void delayedSetup();
     //==============================================================================
     // Your private member variables go here...
-
-	std::shared_ptr<juce::WebBrowserComponent> webBrowser;
+//    WebBrowserWatcher mWebBrowserWatcher;
+    juce::WebBrowserComponent webBrowser;
+	
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

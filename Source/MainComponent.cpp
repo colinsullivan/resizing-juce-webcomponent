@@ -1,27 +1,26 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent()
+MainComponent::MainComponent() : juce::Component()
 {
-	webBrowser = std::make_shared<juce::WebBrowserComponent>(new juce::WebBrowserComponent());
+    DBG("MainComponent::MainComponent");
+    setWantsKeyboardFocus(true);
     setSize (600, 400);
-	this->addAndMakeVisible(webBrowser.get());
-	webBrowser.get()->goToURL("http://localhost:3000");
+
+	addAndMakeVisible(webBrowser);
+	webBrowser.goToURL("http://localhost:3000");
+    webBrowser.setWantsKeyboardFocus(true);
+   
+    // Out of the box, this seems the best way to have the main
+    // component actually grab keyboard focus when the standalone app
+    // starts
+    juce::Timer::callAfterDelay(500, [&](){
+        delayedSetup();
+    });
 }
 
 MainComponent::~MainComponent()
 {
-}
-
-//==============================================================================
-void MainComponent::paint (juce::Graphics& g)
-{
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setFont (juce::Font (16.0f));
-    g.setColour (juce::Colours::white);
-    g.drawText ("Hello World!", getLocalBounds(), juce::Justification::centred, true);
 }
 
 void MainComponent::resized()
@@ -31,8 +30,26 @@ void MainComponent::resized()
     // update their positions.
 
 	DBG("resized");
+    
 	int height = getHeight();
 	int width = getWidth();
 
-	webBrowser.get()->setSize(width, height);
+	webBrowser.setSize(width, height);
+    repaint();
+}
+
+void MainComponent::focusGained (juce::Component::FocusChangeType cause) {
+    DBG("MainComponent::focusGained");
+    webBrowser.grabKeyboardFocus();
+}
+
+void MainComponent::visibilityChanged() {
+    DBG("visibilityChanged");    
+}
+
+void MainComponent::delayedSetup() {
+    if (!hasKeyboardFocus(true) && isShowing())
+    {
+        grabKeyboardFocus();
+    }
 }
