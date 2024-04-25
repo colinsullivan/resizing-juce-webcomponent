@@ -1,7 +1,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : juce::Component(), juce::Timer()
+MainComponent::MainComponent() : juce::Component()
 {
     DBG("MainComponent::MainComponent");
     setWantsKeyboardFocus(true);
@@ -10,8 +10,13 @@ MainComponent::MainComponent() : juce::Component(), juce::Timer()
 	addAndMakeVisible(webBrowser);
 	webBrowser.goToURL("http://localhost:3000");
     webBrowser.setWantsKeyboardFocus(true);
-    
-    startTimer(200);
+   
+    // Out of the box, this seems the best way to have the main
+    // component actually grab keyboard focus when the standalone app
+    // starts
+    juce::Timer::callAfterDelay(500, [&](){
+        delayedSetup();
+    });
 }
 
 MainComponent::~MainComponent()
@@ -34,24 +39,17 @@ void MainComponent::resized()
 }
 
 void MainComponent::focusGained (juce::Component::FocusChangeType cause) {
-    DBG("focusgained");
+    DBG("MainComponent::focusGained");
     webBrowser.grabKeyboardFocus();
 }
 
 void MainComponent::visibilityChanged() {
-    DBG("visibilityChanged");
-    
+    DBG("visibilityChanged");    
 }
 
-void MainComponent::timerCallback() {
-    DBG("maincmp delayed setup");
-    DBG((hasKeyboardFocus(true) ? "maincmp has keyboard focus" : "maincmp does not have keyboard focus"));
-//    DBG((getParentComponent()->isShowing() ? "parent is showing" : "parent is not showing"));
-    DBG((isShowing() ? "maincmp is visible" : "maincmp is not visible"));
+void MainComponent::delayedSetup() {
     if (!hasKeyboardFocus(true) && isShowing())
     {
-        DBG("maincmp grabbing keyboard focus");
         grabKeyboardFocus();
     }
-    stopTimer();
 }
