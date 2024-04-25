@@ -1,3 +1,4 @@
 Builds
 webapp/node_modules
 JuceLibraryCode
+*.DS_Store
