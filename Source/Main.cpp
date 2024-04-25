@@ -65,7 +65,7 @@ public:
                               DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
-            setContentOwned (new MainComponent(), true);
+            setContentOwned (&mMainComponent, true);
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
@@ -75,6 +75,8 @@ public:
            #endif
 
             setVisible (true);
+            
+            toFront(true);
         }
 
         void closeButtonPressed() override
@@ -91,8 +93,16 @@ public:
            you really have to override any DocumentWindow methods, make sure your
            subclass also calls the superclass's method.
         */
+        
+        void activeWindowStatusChanged() override {
+            juce::DocumentWindow::activeWindowStatusChanged();
+            DBG("activeWindowStatusChanged:");
+            DBG((isActiveWindow() ? "active" : "inactive"));
+        };
 
     private:
+        MainComponent mMainComponent;
+
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
     };
 

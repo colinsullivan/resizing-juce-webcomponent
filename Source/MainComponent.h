@@ -15,16 +15,14 @@ public:
     ~MainComponent() override;
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void focusGained (juce::Component::FocusChangeType cause) override;
+    void visibilityChanged() override;
 
 private:
+    void delayedSetup();
     //==============================================================================
-    // Your private member variables go here...
-
-    // pre-juce 8
-    //std::shared_ptr<juce::WebBrowserComponent> webBrowser;
-
     // Juce 8
     juce::WebBrowserComponent webBrowser { juce::WebBrowserComponent::Options{}
                                          .withBackend (juce::WebBrowserComponent::Options::Backend::webview2)
