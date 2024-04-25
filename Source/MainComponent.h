@@ -22,8 +22,15 @@ private:
     //==============================================================================
     // Your private member variables go here...
 
-	std::shared_ptr<juce::WebBrowserComponent> webBrowser;
+    // pre-juce 8
+    //std::shared_ptr<juce::WebBrowserComponent> webBrowser;
 
+    // Juce 8
+    juce::WebBrowserComponent webBrowser { juce::WebBrowserComponent::Options{}
+                                         .withBackend (juce::WebBrowserComponent::Options::Backend::webview2)
+                                         .withWinWebView2Options (juce::WebBrowserComponent::Options::WinWebView2{}
+                                                                      .withUserDataFolder (juce::File::getSpecialLocation (juce::File::SpecialLocationType::tempDirectory)))
+                                         .withNativeIntegrationEnabled() };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

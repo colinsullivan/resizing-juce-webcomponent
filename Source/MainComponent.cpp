@@ -3,10 +3,9 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-	webBrowser = std::make_shared<juce::WebBrowserComponent>(new juce::WebBrowserComponent());
     setSize (600, 400);
-	this->addAndMakeVisible(webBrowser.get());
-	webBrowser.get()->goToURL("http://localhost:3000");
+    this->addAndMakeVisible(webBrowser);
+	webBrowser.goToURL("http://localhost:3000");
 }
 
 MainComponent::~MainComponent()
@@ -34,5 +33,5 @@ void MainComponent::resized()
 	int height = getHeight();
 	int width = getWidth();
 
-	webBrowser.get()->setSize(width, height);
+	webBrowser.setSize(width, height);
 }
