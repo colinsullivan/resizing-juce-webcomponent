@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LKRGI9" name="WindowsBrowserTest" projectType="guiapp" useAppConfig="0"
+<JUCERPROJECT id="LKRGI9" name="BrowserGUITest" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
-  <MAINGROUP id="Fbtpqu" name="WindowsBrowserTest">
+  <MAINGROUP id="Fbtpqu" name="BrowserGUITest">
     <GROUP id="{4F3CB7CE-0161-73C4-C953-95B08CCE2E0B}" name="Source">
       <FILE id="Ohxypw" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="OMAiMO" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>

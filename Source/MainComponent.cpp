@@ -35,7 +35,6 @@ void MainComponent::resized()
 	int width = getWidth();
 
 	webBrowser.setSize(width, height);
-    repaint();
 }
 
 void MainComponent::focusGained (juce::Component::FocusChangeType cause) {
