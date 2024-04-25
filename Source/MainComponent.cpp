@@ -1,27 +1,21 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent()
+MainComponent::MainComponent() : juce::Component(), juce::Timer()
 {
-	webBrowser = std::make_shared<juce::WebBrowserComponent>(new juce::WebBrowserComponent());
+    DBG("MainComponent::MainComponent");
+    setWantsKeyboardFocus(true);
     setSize (600, 400);
-	this->addAndMakeVisible(webBrowser.get());
-	webBrowser.get()->goToURL("http://localhost:3000");
+
+	addAndMakeVisible(webBrowser);
+	webBrowser.goToURL("http://localhost:3000");
+    webBrowser.setWantsKeyboardFocus(true);
+    
+    startTimer(200);
 }
 
 MainComponent::~MainComponent()
 {
-}
-
-//==============================================================================
-void MainComponent::paint (juce::Graphics& g)
-{
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setFont (juce::Font (16.0f));
-    g.setColour (juce::Colours::white);
-    g.drawText ("Hello World!", getLocalBounds(), juce::Justification::centred, true);
 }
 
 void MainComponent::resized()
@@ -31,8 +25,33 @@ void MainComponent::resized()
     // update their positions.
 
 	DBG("resized");
+    
 	int height = getHeight();
 	int width = getWidth();
 
-	webBrowser.get()->setSize(width, height);
+	webBrowser.setSize(width, height);
+    repaint();
+}
+
+void MainComponent::focusGained (juce::Component::FocusChangeType cause) {
+    DBG("focusgained");
+    webBrowser.grabKeyboardFocus();
+}
+
+void MainComponent::visibilityChanged() {
+    DBG("visibilityChanged");
+    
+}
+
+void MainComponent::timerCallback() {
+    DBG("maincmp delayed setup");
+    DBG((hasKeyboardFocus(true) ? "maincmp has keyboard focus" : "maincmp does not have keyboard focus"));
+//    DBG((getParentComponent()->isShowing() ? "parent is showing" : "parent is not showing"));
+    DBG((isShowing() ? "maincmp is visible" : "maincmp is not visible"));
+    if (!hasKeyboardFocus(true) && isShowing())
+    {
+        DBG("maincmp grabbing keyboard focus");
+        grabKeyboardFocus();
+    }
+    stopTimer();
 }
