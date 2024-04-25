@@ -31,5 +31,8 @@
       "last 1 safari version",
       "ie 11"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
   }
 }
