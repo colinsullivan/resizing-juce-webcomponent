@@ -7,14 +7,16 @@ MainComponent::MainComponent() : juce::Component()
     setWantsKeyboardFocus(true);
     setSize (600, 400);
 
-	addAndMakeVisible(webBrowser);
+    addAndMakeVisible(webBrowser);
+    webBrowser.setTopLeftPosition(-600, 0);
 	webBrowser.goToURL("http://localhost:3000");
     webBrowser.setWantsKeyboardFocus(true);
    
     // Out of the box, this seems the best way to have the main
     // component actually grab keyboard focus when the standalone app
     // starts
-    juce::Timer::callAfterDelay(500, [&](){
+    juce::Timer::callAfterDelay(1000, [&](){
+        webBrowser.setTopLeftPosition(0, 0);
         delayedSetup();
     });
 }

@@ -74,8 +74,7 @@ public:
             centreWithSize (getWidth(), getHeight());
            #endif
 
-            setVisible (true);
-            
+            setVisible (true);            
             toFront(true);
         }
 
